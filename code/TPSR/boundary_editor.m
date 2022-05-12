@@ -35,7 +35,7 @@ vertex = uv;
 % plot_surf(face,vertex,  prf_value_2_color('ecc', prf(:,2)) )
 figure
 % plot_surf(face,vertex,   )
-plot_surf(face,vertex,  prf_value_2_color('lh', prf(:,1))*0.2+0.8* Em.Vertex_rgb) 
+plot_surf(face,uvm,  prf_value_2_color('lh', prf(:,1))*0.2+0.8* Em.Vertex_rgb) 
  
 axis off
 xy =[];
