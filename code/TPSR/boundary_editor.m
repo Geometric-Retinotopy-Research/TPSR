@@ -1,21 +1,29 @@
+%%		
+% Description  -- boundary_editor(fn)
+%			Draw the region of interest
+% Parameter(s): 
+%		fn[string]  --  file name.
+%
+% 
+%		
+%%
+function boundary_editor(fn)
 %% boundary editot:
 % Generate the solve boundary, and a fix reasonable value, with ecc and
 % polar value
 
- close all;clc;clear
-addpath(genpath('geometry-processing-package'));
-addpath('utilities');
-rng(0)
+%  close all;clc;clear
+% addpath(genpath('geometry-processing-package'));
+% addpath('utilities');
+% rng(0)
 
  
 global para_R0 para_k
 para_R0 =25; 
 para_k = 0.1;
 
-
-fn = '100610lh.m'; 
+% fn = '100610lh.m'; 
 [Fm,Vm, Em]=read_mfile(['../data/mesh_data/' fn]); 
-
 uvm = disk_conformal_map(Fm, Vm);
 % 
 % uvm = disk_area_mapping(Fm, Vm, uv_c, [4154], [0,0]);
@@ -35,7 +43,7 @@ vertex = uv;
 % plot_surf(face,vertex,  prf_value_2_color('ecc', prf(:,2)) )
 figure
 % plot_surf(face,vertex,   )
-plot_surf(face,uvm,  prf_value_2_color('lh', prf(:,1))*0.2+0.8* Em.Vertex_rgb) 
+plot_surf(face,vertex,  prf_value_2_color('lh', prf(:,1))*0.2+0.8* Em.Vertex_rgb) 
  
 axis off
 xy =[];
@@ -70,7 +78,6 @@ id2delete = setdiff(1:Nv, find(in));
 uv = uvm(vfather,:);
     
 prf = Em.Vertex_prf(vfather,:);
- 
  
 
 figure
@@ -114,11 +121,11 @@ for i=1:length(anchor)
     
     ang_smoothed = smoothn(eccs, weight_from_R2(R2(id(sid))));
     
-     figure(102); hold off;
-    plot(thetas, eccs, thetas, ang_smoothed); hold on;
+%      figure(102); hold off;
+%     plot(thetas, eccs, thetas, ang_smoothed); hold on;
      s = spline(thetas,ang_smoothed,rhoi);
-    plot(rhoi, s, 'go')
-    ylim([0, 10])
+%     plot(rhoi, s, 'go')
+%     ylim([0, 10])
     % fit a function
     
     anchorpos(i,1) =s;
@@ -147,11 +154,11 @@ for i=1:length(anchor)
     
     ang_smoothed = smoothn(angs, R2line);
     
-     figure(102); hold off;
-    plot(thetas, angs, thetas, ang_smoothed); hold on;
+%      figure(102); hold off;
+%     plot(thetas, angs, thetas, ang_smoothed); hold on;
      s = spline(thetas,ang_smoothed,thetai);
-    plot(thetai, s, 'go')
-    plot(thetas,0.1*R2line,'b-');
+%     plot(thetai, s, 'go')
+%     plot(thetas,0.1*R2line,'b-');
     % fit a function
     
     anchorpos(i,2) =s;
@@ -169,8 +176,9 @@ anchorpos =  anchorpossmooth(n+1:2*n,:);
 save(fn, 'id2delete','anchor',   'anchorpos')
 
 
-figure
+% figure
 %
-plot(anchorpos(:,1), anchorpos(:,2))
+% plot(anchorpos(:,1), anchorpos(:,2))
 %% 
+end
 
